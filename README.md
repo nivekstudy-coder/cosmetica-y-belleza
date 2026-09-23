@@ -1,1 +1,0 @@
-# cosmetica-y-belleza
