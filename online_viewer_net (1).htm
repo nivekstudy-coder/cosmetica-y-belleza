@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lawen Domo Anumka - Cosmética Natural</title>
+    <meta name="description" content="Catálogo de cosmética natural y cuidado de piel de Lawen Domo Anumka.">
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts Oficiales -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons via CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        seal: ['"Cinzel"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fbf9f5;
+            color: #1e293b;
+        }
+        .font-brand-serif {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- SECCIÓN: COSMETICA NATURAL Y CUIDADO DE PIEL (Catálogo de 15 productos) -->
+    <main class="max-w-7xl mx-auto px-4 py-12 flex-1 w-full">
+        <div class="text-center mb-10">
+            <span class="text-xs uppercase tracking-widest text-emerald-800 font-bold block mb-1">
+                Catálogo Botánico Artesanal
+            </span>
+            <h3 class="font-brand-serif text-3xl sm:text-4xl font-bold text-slate-900 drop-shadow-xs">
+                COSMETICA NATURAL Y CUIDADO DE PIEL
+            </h3>
+            <div class="w-20 h-1 bg-[#3d5a73] mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <!-- Filtros por categoría -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-8" id="cat-filter-buttons">
+            <button onclick="filterProducts('all')" class="cat-btn px-3.5 py-1.5 text-xs font-semibold rounded-xl bg-[#3d5a73] text-white shadow-xs" data-cat="all">Todos (15)</button>
+            <button onclick="filterProducts('facial')" class="cat-btn px-3.5 py-1.5 text-xs font-semibold rounded-xl bg-white text-slate-600 hover:bg-slate-100" data-cat="facial">Cuidado Facial</button>
+            <button onclick="filterProducts('tratamientos')" class="cat-btn px-3.5 py-1.5 text-xs font-semibold rounded-xl bg-white text-slate-600 hover:bg-slate-100" data-cat="tratamientos">Psoriasis & Alivio</button>
+            <button onclick="filterProducts('capilar')" class="cat-btn px-3.5 py-1.5 text-xs font-semibold rounded-xl bg-white text-slate-600 hover:bg-slate-100" data-cat="capilar">Cuidado Capilar</button>
+            <button onclick="filterProducts('bienestar')" class="cat-btn px-3.5 py-1.5 text-xs font-semibold rounded-xl bg-white text-slate-600 hover:bg-slate-100" data-cat="bienestar">Herbolaria & Cannabis</button>
+            <button onclick="filterProducts('corporal')" class="cat-btn px-3.5 py-1.5 text-xs font-semibold rounded-xl bg-white text-slate-600 hover:bg-slate-100" data-cat="corporal">Cuidado Corporal</button>
+        </div>
+
+        <!-- Cuadrícula de los 15 productos -->
+        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+            <!-- Generado dinámicamente -->
+        </div>
+    </main>
+
+    <!-- MODAL: DETALLE DEL PRODUCTO -->
+    <div id="modal-product" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+            <div class="flex items-center justify-between border-b pb-3">
+                <div>
+                    <span id="modal-cat" class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Categoría</span>
+                    <h3 id="modal-title" class="font-brand-serif text-xl font-bold text-slate-900">Nombre del Producto</h3>
+                </div>
+                <button onclick="closeProductModal()" class="text-slate-400 hover:text-slate-700 p-1">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <p id="modal-desc" class="text-xs text-slate-600 leading-relaxed italic bg-slate-50 p-3 rounded-xl border border-slate-100">
+                Descripción...
+            </p>
+            <div class="space-y-2">
+                <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Modo de Empleo Recomendado</h4>
+                <p id="modal-use" class="text-xs text-slate-600 bg-blue-50/50 p-3 rounded-xl border border-blue-100">
+                    Uso...
+                </p>
+            </div>
+            <div class="flex items-center justify-between pt-4 border-t">
+                <div>
+                    <span class="text-[10px] text-slate-400 block uppercase">Precio ref.</span>
+                    <span id="modal-price" class="font-brand-serif text-lg font-bold text-slate-900">$8.500</span>
+                </div>
+                <button id="modal-btn-wa" class="flex items-center gap-2 px-4 py-2 bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold rounded-xl shadow-md transition-all">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i>
+                    <span>Pedir por WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LÓGICA JAVASCRIPT INTEGRADA -->
+    <script>
+        const PRODUCTS = [
+            { id: '1', name: 'Crema de Rosa Mosqueta', cat: 'facial', catLabel: 'Cuidado Facial', desc: 'Hidratación y regeneración celular profunda para la piel.', price: 8500, highlight: 'Regeneración celular profunda', use: 'Aplicar sobre el rostro limpio por la noche con masajes circulares.' },
+            { id: '2', name: 'Crema de Arroz', cat: 'facial', catLabel: 'Cuidado Facial', desc: 'Esta crema aclara y unifica el tono de la piel gracias a las propiedades vegetales orgánicas.', price: 8000, highlight: 'Aclara y unifica el tono', use: 'Uso diario mañana y noche en cutis limpio.' },
+            { id: '3', name: 'Crema de Psoriasis', cat: 'tratamientos', catLabel: 'Alivio & Psoriasis', desc: 'Crema elaborada a partir de... Hidrata, suaviza escamas y elimina durezas de la piel', price: 9500, highlight: 'Suaviza escamas y durezas', use: 'Aplicar directamente en zonas resecas 2 a 3 veces al día.' },
+            { id: '4', name: 'Aceite para la Psoriasis', cat: 'tratamientos', catLabel: 'Alivio & Psoriasis', desc: 'Aceites prensados en frío que reafirman la piel y previenen la formación de dolorosas grietas.', price: 11000, highlight: 'Prensado en frío contra grietas', use: 'Aplicar unas gotas en áreas propensas a agrietarse.' },
+            { id: '5', name: 'Aceite de Cannabis', cat: 'bienestar', catLabel: 'Herbolaria & Alivio', desc: 'Relajante natural para alivio de dolores y tensiones.', price: 12500, highlight: 'Alivio de dolores y tensiones', use: 'Masajear suavemente en zonas doloridas o sienes.' },
+            { id: '6', name: 'Aceites Reafirmantes para Uñas', cat: 'corporal', catLabel: 'Cuidado Corporal', desc: 'Con propiedades antioxidantes y antibacterianas que fortalecen la uña y evitan que se quiebren con facilidad', price: 6500, highlight: 'Antioxidante y antibacteriano', use: 'Una gota en cutículas y uñas cada noche.' },
+            { id: '7', name: 'Gotas Medicinales de Maceración', cat: 'bienestar', catLabel: 'Herbolaria', desc: 'Formulaciones herbales naturales con funciones específicas (gotas para el colon, para calmar ansiedad y fortalecer el sistema inmunológico)', price: 9000, highlight: 'Colon, ansiedad e inmunidad', use: 'Diluir en medio vaso de agua tibia.' },
+            { id: '8', name: 'Gel Calmante de Aloevera', cat: 'facial', catLabel: 'Cuidado Facial', desc: 'Alivio instantaneo para pieles sensibles, irritadas por el sol o con rosácea y psoriasis. Reduce la descamación', price: 7500, highlight: 'Rosácea, sol y descamación', use: 'Aplicar capa generosa sobre piel limpia e irritada.' },
+            { id: '9', name: 'Jabón Íntimo Natural Desinfectante', cat: 'corporal', catLabel: 'Cuidado Corporal', desc: 'Cuidado suave y respetuoso con el pH de tu zona íntima', price: 7000, highlight: 'Respetuoso con el pH', use: 'Uso en ducha diaria con agua tibia.' },
+            { id: '10', name: 'Jabón de Arroz Aclarador', cat: 'facial', catLabel: 'Cuidado Facial', desc: 'Elaborado con agua de arroz y vitamina E para limpiar a profundidad y eliminar imperfecciones', price: 5000, highlight: 'Agua de arroz y Vitamina E', use: 'Hacer espuma suave, masajear el rostro 1 minuto y enjuagar.' },
+            { id: '11', name: 'Mascarilla Exfoliante de Manzanilla y Avena', cat: 'facial', catLabel: 'Cuidado Facial', desc: 'Limpia impurezas suavemente mientras calma el cutis', price: 6500, highlight: 'Exfoliación suave y calmante', use: '1 a 2 veces por semana, dejar 10 min y retirar con agua.' },
+            { id: '12', name: 'Shampoo de Ortiga Control Caída', cat: 'capilar', catLabel: 'Cuidado Capilar', desc: 'Fortalece la raíz y evita la caída del cabello. Excelente aliado también para regular el cabello graso.', price: 8500, highlight: 'Fortalece raíz y regula grasa', use: 'Masajear en cuero cabelludo mojado, dejar 3 min y enjuagar.' },
+            { id: '13', name: 'Shampoo de Aloevera', cat: 'capilar', catLabel: 'Cuidado Capilar', desc: 'Limpieza profunda y suavidad extrema sin químicos ni conservantes. Perfecto para cueros cabelludos sensibles o con afecciones como psoriasis y dermatitis', price: 8500, highlight: 'Sin químicos ni conservantes', use: 'Lavado frecuente para cuero cabelludo reactivo o con caspa.' },
+            { id: '14', name: 'Shampoo de Anís y Control de Caspa', cat: 'capilar', catLabel: 'Cuidado Capilar', desc: 'El shampoo de anis estimula el crecimiento, rellenando la fibra capilar y reforzando el cuero cabelludo.', price: 8500, highlight: 'Estimula crecimiento capilar', use: 'Emulsionar en cabello húmedo y aclarar abundantemente.' },
+            { id: '15', name: 'Bálsamos Labiales', cat: 'corporal', catLabel: 'Cuidado Labial', desc: 'Súper hidratantes hechos a base de cera de abeja, aceite de oliva y hierbas. Reparan al instante labios secos y agrietados.', price: 3500, highlight: 'Cera de abeja, oliva y hierbas', use: 'Aplicar cuantas veces sea necesario en labios secos.' }
+        ];
+
+        function renderProducts(catFilter = 'all') {
+            const container = document.getElementById('products-grid');
+            container.innerHTML = '';
+
+            const filtered = catFilter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === catFilter);
+
+            filtered.forEach(p => {
+                const isCannabis = p.id === '5';
+                const card = document.createElement('div');
+                card.className = `bg-white rounded-2xl p-5 border transition-all hover:shadow-lg cursor-pointer flex flex-col justify-between ${
+                    isCannabis ? 'border-purple-300 ring-2 ring-purple-400/50' : 'border-slate-200 hover:border-slate-400'
+                }`;
+                card.onclick = () => openProductModal(p);
+
+                card.innerHTML = `
+                    <div>
+                        <div class="w-24 h-24 rounded-full bg-[#f4ece1] border border-stone-200 mx-auto flex items-center justify-center mb-3 shadow-inner">
+                            <span class="text-3xl">${p.cat === 'capilar' ? '🌿' : isCannabis ? '🌱' : p.cat === 'bienestar' ? '🧪' : '✨'}</span>
+                        </div>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block text-center mb-1">${p.catLabel}</span>
+                        <h4 class="font-brand-serif text-base font-bold text-slate-900 text-center leading-snug mb-1">${p.name}</h4>
+                        <div class="text-[11px] font-semibold text-emerald-700 text-center mb-2">★ ${p.highlight}</div>
+                        <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed mb-4 text-center">"${p.desc}"</p>
+                    </div>
+                    <div class="pt-3 border-t flex items-center justify-between">
+                        <span class="font-brand-serif font-bold text-slate-900 text-sm">$${p.price.toLocaleString('es-CL')}</span>
+                        <button onclick="event.stopPropagation(); orderProductWhatsApp('${p.name}', ${p.price})" class="px-2.5 py-1.5 bg-[#25D366] text-white text-[11px] font-bold rounded-lg hover:bg-[#20ba59] transition-colors">
+                            Pedir
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        function filterProducts(cat) {
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if (btn.getAttribute('data-cat') === cat) {
+                    btn.className = 'cat-btn px-3.5 py-1.5 text-xs font-semibold rounded-xl bg-[#3d5a73] text-white shadow-xs';
+                } else {
+                    btn.className = 'cat-btn px-3.5 py-1.5 text-xs font-semibold rounded-xl bg-white text-slate-600 hover:bg-slate-100';
+                }
+            });
+            renderProducts(cat);
+        }
+
+        function openProductModal(p) {
+            document.getElementById('modal-cat').innerText = p.catLabel;
+            document.getElementById('modal-title').innerText = p.name;
+            document.getElementById('modal-desc').innerText = `"${p.desc}"`;
+            document.getElementById('modal-use').innerText = p.use;
+            document.getElementById('modal-price').innerText = `$${p.price.toLocaleString('es-CL')}`;
+            document.getElementById('modal-btn-wa').onclick = () => orderProductWhatsApp(p.name, p.price);
+            document.getElementById('modal-product').classList.remove('hidden');
+            document.getElementById('modal-product').classList.add('flex');
+        }
+
+        function closeProductModal() {
+            document.getElementById('modal-product').classList.add('hidden');
+            document.getElementById('modal-product').classList.remove('flex');
+        }
+
+        function orderProductWhatsApp(productName, price) {
+            const phone = '56900000000';
+            const msg = encodeURIComponent(`Hola! Me interesa solicitar "${productName}" ($${price.toLocaleString('es-CL')}) de Lawen Domo Anumka. ¿Tienen stock disponible?`);
+            window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts('all');
+            lucide.createIcons();
+        });
+    </script>
+</body>
+
+</html>
